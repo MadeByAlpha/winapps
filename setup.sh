@@ -68,7 +68,7 @@ readonly DETECTED_FILE_PATH_WIN="${USER_APPDATA_PATH_WIN}\\detected" # WINDOWS p
 readonly TEST_PATH="${USER_APPDATA_PATH}/FreeRDP_Connection_Test"          # UNIX path to temporary file whose existence is used to confirm a successful RDP connection was established.
 readonly TEST_PATH_WIN="${USER_APPDATA_PATH_WIN}\\FreeRDP_Connection_Test" # WINDOWS path to temporary file whose existence is used to confirm a successful RDP connection was established.
 # 'WinApps Configuration File'
-readonly CONFIG_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/winapps.conf" # UNIX path to the WinApps configuration file.
+readonly CONFIG_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/winapps/winapps.conf" # UNIX path to the WinApps configuration file.
 # 'Inquirer Bash Script'
 readonly INQUIRER_PATH="./install/inquirer.sh" # UNIX path to the 'inquirer' script, which is used to produce selection menus.
 
