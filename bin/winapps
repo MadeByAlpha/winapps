@@ -19,12 +19,12 @@ readonly EC_UNSUPPORTED_APP=14
 readonly EC_INVALID_FLAVOR=15
 
 # PATHS
-readonly APPDATA_PATH="${HOME}/.local/share/winapps"
+readonly APPDATA_PATH="${XDG_DATA_HOME:-${HOME}/.local/share}/winapps"
 readonly SYS_APP_PATH="/usr/local/share/winapps"
 readonly LASTRUN_PATH="${APPDATA_PATH}/lastrun"
 readonly LOG_PATH="${APPDATA_PATH}/winapps.log"
-readonly CONFIG_PATH="${HOME}/.config/winapps/winapps.conf"
-readonly COMPOSE_PATH="${HOME}/.config/winapps/compose.yaml"
+readonly CONFIG_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/winapps/winapps.conf"
+readonly COMPOSE_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/winapps/compose.yaml"
 # shellcheck disable=SC2155 # Silence warnings regarding masking return values through simultaneous declaration and assignment.
 readonly SCRIPT_DIR_PATH="$(cd "$(dirname "${BASH_SOURCE[0]}")" &>/dev/null && pwd)"
 readonly SLEEP_DETECT_PATH="${APPDATA_PATH}/last_activity"

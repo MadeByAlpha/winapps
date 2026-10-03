@@ -36,18 +36,18 @@ readonly EC_INVALID_FLAVOR="16"  # Backend specified is not 'libvirt', 'docker' 
 # PATHS
 # 'BIN'
 readonly SYS_BIN_PATH="/usr/local/bin"                  # UNIX path to 'bin' directory for a '--system' WinApps installation.
-readonly USER_BIN_PATH="${HOME}/.local/bin"             # UNIX path to 'bin' directory for a '--user' WinApps installation.
+readonly USER_BIN_PATH="${XDG_BIN_HOME:-${HOME}/.local/bin}"             # UNIX path to 'bin' directory for a '--user' WinApps installation.
 readonly USER_BIN_PATH_WIN='\\tsclient\home\.local\bin' # WINDOWS path to 'bin' directory for a '--user' WinApps installation.
 # 'SOURCE'
 readonly SYS_SOURCE_PATH="${SYS_BIN_PATH}/winapps-src" # UNIX path to WinApps source directory for a '--system' WinApps installation.
 readonly USER_SOURCE_PATH="${USER_BIN_PATH}/winapps-src" # UNIX path to WinApps source directory for a '--user' WinApps installation.
 # 'APP'
 readonly SYS_APP_PATH="/usr/share/applications"                        # UNIX path to 'applications' directory for a '--system' WinApps installation.
-readonly USER_APP_PATH="${HOME}/.local/share/applications"             # UNIX path to 'applications' directory for a '--user' WinApps installation.
+readonly USER_APP_PATH="${XDG_DATA_HOME:-${HOME}/.local/share}/applications"             # UNIX path to 'applications' directory for a '--user' WinApps installation.
 readonly USER_APP_PATH_WIN='\\tsclient\home\.local\share\applications' # WINDOWS path to 'applications' directory for a '--user' WinApps installation.
 # 'APPDATA'
 readonly SYS_APPDATA_PATH="/usr/local/share/winapps"                  # UNIX path to 'application data' directory for a '--system' WinApps installation.
-readonly USER_APPDATA_PATH="${HOME}/.local/share/winapps"             # UNIX path to 'application data' directory for a '--user' WinApps installation.
+readonly USER_APPDATA_PATH="${XDG_DATA_HOME:-${HOME}/.local/share}/winapps"             # UNIX path to 'application data' directory for a '--user' WinApps installation.
 readonly USER_APPDATA_PATH_WIN='\\tsclient\home\.local\share\winapps' # WINDOWS path to 'application data' directory for a '--user' WinApps installation.
 # 'Installed Batch Script'
 readonly BATCH_SCRIPT_PATH="${USER_APPDATA_PATH}/installed.bat"          # UNIX path to a batch script used to search Windows for applications.
@@ -68,7 +68,7 @@ readonly DETECTED_FILE_PATH_WIN="${USER_APPDATA_PATH_WIN}\\detected" # WINDOWS p
 readonly TEST_PATH="${USER_APPDATA_PATH}/FreeRDP_Connection_Test"          # UNIX path to temporary file whose existence is used to confirm a successful RDP connection was established.
 readonly TEST_PATH_WIN="${USER_APPDATA_PATH_WIN}\\FreeRDP_Connection_Test" # WINDOWS path to temporary file whose existence is used to confirm a successful RDP connection was established.
 # 'WinApps Configuration File'
-readonly CONFIG_PATH="${HOME}/.config/winapps/winapps.conf" # UNIX path to the WinApps configuration file.
+readonly CONFIG_PATH="${XDG_CONFIG_HOME:-${HOME}/.config}/winapps.conf" # UNIX path to the WinApps configuration file.
 # 'Inquirer Bash Script'
 readonly INQUIRER_PATH="./install/inquirer.sh" # UNIX path to the 'inquirer' script, which is used to produce selection menus.
 
@@ -162,7 +162,7 @@ function waGetSourceCode() {
     fi
 
     if [[ ! -d "$SOURCE_PATH" ]]; then
-        $SUDO git clone --recurse-submodules --remote-submodules https://github.com/winapps-org/winapps.git "$SOURCE_PATH"
+        $SUDO git clone --recurse-submodules --remote-submodules https://github.com/MadeByAlpha/winapps.git "$SOURCE_PATH"
     else
         echo -e "${INFO_TEXT}WinApps installation already present at ${CLEAR_TEXT}${COMMAND_TEXT}${SOURCE_PATH}${CLEAR_TEXT}${INFO_TEXT}. Updating...${CLEAR_TEXT}"
         $SUDO git -C "$SOURCE_PATH" pull --no-rebase
@@ -202,7 +202,7 @@ function waGetInquirer() {
         INQUIRER="/tmp/waInquirer.sh"
         rm -f "$INQUIRER"
 
-        curl -o "$INQUIRER" "https://raw.githubusercontent.com/winapps-org/winapps/main/install/inquirer.sh"
+        curl -o "$INQUIRER" "https://raw.githubusercontent.com/MadeByAlpha/winapps/main/install/inquirer.sh"
     fi
 
     # shellcheck source=/dev/null # Exclude this file from being checked by ShellCheck.
@@ -552,7 +552,7 @@ function waLoadConfig() {
         # Display the suggested action(s).
         echo "--------------------------------------------------------------------------------"
         echo -e "Please create a configuration file at ${COMMAND_TEXT}${CONFIG_PATH}${CLEAR_TEXT}."
-        echo -e "See https://github.com/winapps-org/winapps?tab=readme-ov-file#step-3-create-a-winapps-configuration-file"
+        echo -e "See https://github.com/MadeByAlpha/winapps?tab=readme-ov-file#step-3-create-a-winapps-configuration-file"
         echo "--------------------------------------------------------------------------------"
 
         # Terminate the script.
